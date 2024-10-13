@@ -5,7 +5,7 @@ import journalData from '../data/data.json'
 import { JournalEntryType } from "../utils/types";
 
 
-const App: FC = () => {
+const Home: FC = () => {
 
   const [data, setData] = useState<JournalEntryType[]>([])
 
@@ -21,4 +21,4 @@ const App: FC = () => {
 
 }
 
-export default App;
+export default Home;
