@@ -6,6 +6,7 @@ import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Footer from './components/Footer.tsx'
 import Navbar from './components/Navbar.tsx'
 import Error from './components/Error.tsx'
+import EntryDetails from './components/EntryDetails.tsx'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Home from './components/Home.tsx'
@@ -33,6 +34,10 @@ const router = createBrowserRouter([{
     {
       path: "",
       element: <Home />
+    },
+    {
+      path: ":id",
+      element: <EntryDetails />
     }
   ],
   errorElement: <Error />
