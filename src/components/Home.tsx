@@ -2,12 +2,11 @@ import { FC, useEffect, useState } from "react"
 import Navbar from "./Navbar";
 import JournalDiv from "./JournalsDiv";
 import journalData from '../data/data.json'
-import { JournalEntryType } from "../utils/types";
-
+import { Entry } from "../store/features/entrySlice";
 
 const Home: FC = () => {
 
-  const [data, setData] = useState<JournalEntryType[]>([])
+  const [data, setData] = useState<Entry[]>([])
 
   useEffect(() => {
 

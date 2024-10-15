@@ -1,9 +1,9 @@
 import { FC } from "react"
-import { JournalEntryType } from "../utils/types";
 import JournalEntry from "./JournalEntry";
+import { Entry } from "../store/features/entrySlice";
 
 interface JournalsDivProps {
-    data: JournalEntryType[]
+    data: Entry[]
 }
 
 const JournalDiv: FC<JournalsDivProps> = ({ data }) => {

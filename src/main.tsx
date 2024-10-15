@@ -1,6 +1,3 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-
 import './index.css'
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Footer from './components/Footer.tsx'
@@ -10,6 +7,8 @@ import EntryDetails from './components/EntryDetails.tsx'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Home from './components/Home.tsx'
+import { Provider } from 'react-redux'
+import { store } from './store/store.ts'
 
 const App = () => {
 
@@ -20,12 +19,6 @@ const App = () => {
   </div>
 
 }
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
 
 const router = createBrowserRouter([{
   path: "",
@@ -46,7 +39,9 @@ const router = createBrowserRouter([{
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 )
 

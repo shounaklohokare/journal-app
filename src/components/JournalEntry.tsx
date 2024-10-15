@@ -1,8 +1,9 @@
 import { FC } from "react"
-import { JournalEntryType } from "../utils/types"
-import { formatDate } from "../utils/utils";
 
-const JournalEntry: FC<JournalEntryType> = ({ title, content, updated_at }) => {
+import { formatDate } from "../utils/utils";
+import { Entry } from "../store/features/entrySlice";
+
+const JournalEntry: FC<Entry> = ({ title, content, updated_at }) => {
 
     return <div className="mx-auto my-5">
         <div className="flex justify-between">
