@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 // Journal Entry
 export interface Entry {
@@ -17,6 +17,12 @@ const initialState: EntryState = {
     entries: [],
 }
 
+export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
+    // To add call to the Lambda function to get journal entries from DynamoDB
+    return []
+
+})
+
 export const EntrySlice = createSlice({
     name: "entry",
     initialState,
@@ -30,8 +36,12 @@ export const EntrySlice = createSlice({
                 updated_at: action.payload.updated_at,
             })
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchEntry.fulfilled, (state, action) => {
+            state.entries = action.payload;
+        })
     }
-
 })
 
 export default EntrySlice.reducer;
