@@ -10,6 +10,17 @@
       "StackName": "amplify-journalapp-dev-76537",
       "StackId": "arn:aws:cloudformation:ap-south-1:174495933663:stack/amplify-journalapp-dev-76537/f127a810-88b9-11ef-85b3-0665b2a5dad7",
       "AmplifyAppId": "d3rdymc2poocex"
+    },
+    "categories": {
+      "function": {
+        "journalapp732fb2e5": {
+          "deploymentBucketName": "amplify-journalapp-dev-76537-deployment",
+          "s3Key": "amplify-builds/journalapp732fb2e5-487076485042484e7854-build.zip"
+        }
+      },
+      "api": {
+        "api2b089323": {}
+      }
     }
   }
 }
