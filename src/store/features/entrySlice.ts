@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import axios from 'axios';
+import { API_ID, API_KEY } from "../../utils/api_details";
 
 // Journal Entry
 export interface Entry {
@@ -18,8 +20,15 @@ const initialState: EntryState = {
 }
 
 export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
+
+    const headers = {
+        'x-api-key': API_KEY
+    }
+
     // To add call to the Lambda function to get journal entries from DynamoDB
-    return []
+    const res = await axios.get(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-journal-entries`, { headers: headers })
+
+    return res.data
 
 })
 

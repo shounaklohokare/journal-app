@@ -2,22 +2,26 @@ import { FC, useEffect, useState } from "react"
 import Navbar from "./Navbar";
 import JournalDiv from "./JournalsDiv";
 import journalData from '../data/data.json'
-import { Entry } from "../store/features/entrySlice";
+import { Entry, fetchEntry } from "../store/features/entrySlice";
+import { useAppDispatch, useAppSelector } from "../store/store";
 
 const Home: FC = () => {
 
-  const [data, setData] = useState<Entry[]>([])
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
+    dispatch(fetchEntry());
+  })
 
-    setData(journalData)
-  }, [])
+  const entries = useAppSelector((state) => state.entry.entries)
 
   return <div>
     <Navbar />
-    <JournalDiv data={data} />
+    <JournalDiv data={entries} />
   </div>
 
 }
 
 export default Home;
+
+
