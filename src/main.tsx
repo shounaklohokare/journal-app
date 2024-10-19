@@ -12,7 +12,7 @@ import { store } from './store/store.ts'
 
 const App = () => {
 
-  return <div>
+  return <div className="flex flex-col min-h-screen">
     <Navbar />
     <Outlet />
     <Footer />
@@ -29,7 +29,7 @@ const router = createBrowserRouter([{
       element: <Home />
     },
     {
-      path: ":id",
+      path: "entry/:id",
       element: <EntryDetails />
     }
   ],

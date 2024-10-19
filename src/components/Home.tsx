@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useEffect } from "react"
 import Navbar from "./Navbar";
 import JournalDiv from "./JournalsDiv";
-import journalData from '../data/data.json'
-import { Entry, fetchEntry } from "../store/features/entrySlice";
+
+import { fetchEntry } from "../store/features/entrySlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 
 const Home: FC = () => {
@@ -16,7 +16,7 @@ const Home: FC = () => {
   const entries = useAppSelector((state) => state.entry.entries)
 
   return <div>
-    <Navbar />
+
     <JournalDiv data={entries} />
   </div>
 
