@@ -1,5 +1,4 @@
 import { FC, useEffect } from "react"
-import Navbar from "./Navbar";
 import JournalDiv from "./JournalsDiv";
 
 import { fetchEntry } from "../store/features/entrySlice";
@@ -16,7 +15,6 @@ const Home: FC = () => {
   const entries = useAppSelector((state) => state.entry.entries)
 
   return <div>
-
     <JournalDiv data={entries} />
   </div>
 

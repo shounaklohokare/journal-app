@@ -1,12 +1,17 @@
 import { FC } from "react"
 import { useNavigate } from "react-router-dom";
+import { IoCreateOutline } from "react-icons/io5";
 
 const Navbar: FC = () => {
 
     const navigate = useNavigate()
 
-    return <div className="flex justify-center flex-shrink-0 items-center absolute top-0 w-full h-24 bg-[#2a2a2a]">
-        <h1 className="text-4xl font-mono md:tracking-wider text-nowrap text-[#f3c278] cursor-pointer" onClick={() => { navigate("/") }}>Journal App</h1>
+    return <div className="flex justify-between flex-shrink-0 items-center absolute top-0 w-full h-24 font-mono bg-[#2a2a2a] text-[#f3c278]">
+        <h1 className="text-4xl mx-72  md:tracking-wider text-nowrap  cursor-pointer" onClick={() => { navigate("/") }}>MindMemo</h1>
+        <div className="flex mx-64 space-x-2 cursor-pointer">
+            <span className="pt-[0.08rem]"><IoCreateOutline size={30} /> </span>
+            <span className="text-2xl" onClick={() => { navigate("new_entry") }}>New Entry</span>
+        </div>
     </div>
 
 }
