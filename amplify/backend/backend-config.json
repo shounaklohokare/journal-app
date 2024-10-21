@@ -9,6 +9,14 @@
           ],
           "category": "function",
           "resourceName": "journalapp732fb2e5"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "journalapp1e39486a"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -16,6 +24,11 @@
     }
   },
   "function": {
+    "journalapp1e39486a": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "journalapp732fb2e5": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -23,6 +36,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_journalapp1e39486a_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "journalapp1e39486a"
+        }
+      ]
+    },
+    "AMPLIFY_function_journalapp1e39486a_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "journalapp1e39486a"
+        }
+      ]
+    },
     "AMPLIFY_function_journalapp732fb2e5_deploymentBucketName": {
       "usedBy": [
         {

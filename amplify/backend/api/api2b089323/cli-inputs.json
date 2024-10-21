@@ -7,6 +7,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/create-update-journal-entry": {
+      "name": "/create-update-journal-entry",
+      "lambdaFunction": "journalapp1e39486a",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }
