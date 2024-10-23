@@ -1,6 +1,6 @@
 {
   "api": {
-    "api2b089323": {
+    "apidfcac5b1": {
       "dependsOn": [
         {
           "attributes": [
@@ -8,7 +8,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "journalapp732fb2e5"
+          "resourceName": "journalappab1cfc19"
         },
         {
           "attributes": [
@@ -16,7 +16,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "journalapp1e39486a"
+          "resourceName": "journalapp342c0d8a"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -24,47 +24,47 @@
     }
   },
   "function": {
-    "journalapp1e39486a": {
+    "journalapp342c0d8a": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "journalapp732fb2e5": {
+    "journalappab1cfc19": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_journalapp1e39486a_deploymentBucketName": {
+    "AMPLIFY_function_journalapp342c0d8a_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "journalapp1e39486a"
+          "resourceName": "journalapp342c0d8a"
         }
       ]
     },
-    "AMPLIFY_function_journalapp1e39486a_s3Key": {
+    "AMPLIFY_function_journalapp342c0d8a_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "journalapp1e39486a"
+          "resourceName": "journalapp342c0d8a"
         }
       ]
     },
-    "AMPLIFY_function_journalapp732fb2e5_deploymentBucketName": {
+    "AMPLIFY_function_journalappab1cfc19_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "journalapp732fb2e5"
+          "resourceName": "journalappab1cfc19"
         }
       ]
     },
-    "AMPLIFY_function_journalapp732fb2e5_s3Key": {
+    "AMPLIFY_function_journalappab1cfc19_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "journalapp732fb2e5"
+          "resourceName": "journalappab1cfc19"
         }
       ]
     }

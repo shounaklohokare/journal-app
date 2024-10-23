@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/create-update-entry": {
+      "name": "/create-update-entry",
+      "lambdaFunction": "journalappab1cfc19",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/get-entries": {
+      "name": "/get-entries",
+      "lambdaFunction": "journalapp342c0d8a",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

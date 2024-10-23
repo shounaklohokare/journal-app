@@ -1,20 +1,20 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "api2b089323": {
+    "apidfcac5b1": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
     }
   },
   "function": {
-    "journalapp1e39486a": {
+    "journalapp342c0d8a": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
-    "journalapp732fb2e5": {
+    "journalappab1cfc19": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

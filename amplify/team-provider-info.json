@@ -1,29 +1,29 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-journalapp-dev-76537-authRole",
-      "UnauthRoleArn": "arn:aws:iam::174495933663:role/amplify-journalapp-dev-76537-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::174495933663:role/amplify-journalapp-dev-76537-authRole",
+      "AuthRoleName": "amplify-journalapp-dev-716cd-authRole",
+      "UnauthRoleArn": "arn:aws:iam::174495933663:role/amplify-journalapp-dev-716cd-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::174495933663:role/amplify-journalapp-dev-716cd-authRole",
       "Region": "ap-south-1",
-      "DeploymentBucketName": "amplify-journalapp-dev-76537-deployment",
-      "UnauthRoleName": "amplify-journalapp-dev-76537-unauthRole",
-      "StackName": "amplify-journalapp-dev-76537",
-      "StackId": "arn:aws:cloudformation:ap-south-1:174495933663:stack/amplify-journalapp-dev-76537/f127a810-88b9-11ef-85b3-0665b2a5dad7",
-      "AmplifyAppId": "d3rdymc2poocex"
+      "DeploymentBucketName": "amplify-journalapp-dev-716cd-deployment",
+      "UnauthRoleName": "amplify-journalapp-dev-716cd-unauthRole",
+      "StackName": "amplify-journalapp-dev-716cd",
+      "StackId": "arn:aws:cloudformation:ap-south-1:174495933663:stack/amplify-journalapp-dev-716cd/55258770-90e8-11ef-a516-0a1fc4b59f49",
+      "AmplifyAppId": "dvibb4qwn0lk1"
     },
     "categories": {
       "function": {
-        "journalapp732fb2e5": {
-          "deploymentBucketName": "amplify-journalapp-dev-76537-deployment",
-          "s3Key": "amplify-builds/journalapp732fb2e5-526b454e51556f655573-build.zip"
+        "journalappab1cfc19": {
+          "deploymentBucketName": "amplify-journalapp-dev-716cd-deployment",
+          "s3Key": "amplify-builds/journalappab1cfc19-35734438305a6778684c-build.zip"
         },
-        "journalapp1e39486a": {
-          "deploymentBucketName": "amplify-journalapp-dev-76537-deployment",
-          "s3Key": "amplify-builds/journalapp1e39486a-50783362644e4a386167-build.zip"
+        "journalapp342c0d8a": {
+          "deploymentBucketName": "amplify-journalapp-dev-716cd-deployment",
+          "s3Key": "amplify-builds/journalapp342c0d8a-7042732b5a6e3130492b-build.zip"
         }
       },
       "api": {
-        "api2b089323": {}
+        "apidfcac5b1": {}
       }
     }
   }
