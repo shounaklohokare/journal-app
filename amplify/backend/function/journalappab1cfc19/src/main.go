@@ -14,11 +14,11 @@ import (
 )
 
 type Entry struct {
-	ID      string `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	ID      string `dynamodbav:"id"`
+	Title   string `dynamodbav:"title"`
+	Content string `dynamodbav:"content"`
+	Created string `dynamodbav:"created"`
+	Updated string `dynamodbav:"updated"`
 }
 
 type Response events.APIGatewayProxyResponse
