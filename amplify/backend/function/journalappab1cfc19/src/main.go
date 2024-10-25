@@ -25,9 +25,6 @@ type Response events.APIGatewayProxyResponse
 
 func createJournalEntry(ctx context.Context, entry Entry) (Response, error) {
 
-	fmt.Printf("Entry Object :- %v\n", entry)
-	fmt.Printf("Entry Object :- %v\n", entry.ID)
-
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		return Response{StatusCode: 500}, fmt.Errorf("failed to load configuration, %v", err)
@@ -66,6 +63,51 @@ func createJournalEntry(ctx context.Context, entry Entry) (Response, error) {
 
 }
 
+func updateEntryObject(ctx context.Context, entry Entry) (Response, error) {
+
+	key, err := attributevalue.MarshalMap(map[string]string{
+		"id": entry.ID, // Assuming "id" is the partition key
+	})
+	if err != nil {
+		return Response{StatusCode: 500}, fmt.Errorf("failed to marshal update values: %v", err, err)
+	}
+
+	updateExpression := "SET #title = :title, #content = :content, #created = :created, #updated = :updated"
+	expressionAttributeNames := map[string]string{
+		"#title":   "title",
+		"#content": "content",
+		"#created": "created",
+		"#updated": "updated",
+	}
+	expressionAttributeValues, err := attributevalue.MarshalMap(map[string]interface{}{
+		":title":   entry.Title,
+		":content": entry.Content,
+		":created": entry.Created,
+		":updated": entry.Updated,
+	})
+	if err != nil {
+		return Response{StatusCode: 500}, fmt.Errorf("failed to put item, %v", err)
+	}
+
+	// Create the UpdateItem input
+	input := &dynamodb.UpdateItemInput{
+		TableName:                 aws.String(tableName),
+		Key:                       key,
+		UpdateExpression:          aws.String(updateExpression),
+		ExpressionAttributeNames:  expressionAttributeNames,
+		ExpressionAttributeValues: expressionAttributeValues,
+	}
+
+	// Update the item in DynamoDB
+	_, err = svc.UpdateItem(ctx, input)
+	if err != nil {
+		return fmt.Errorf("failed to update item: %v", err)
+	}
+
+	return nil
+
+}
+
 func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (Response, error) {
 
 	fmt.Println("Inside /create-update-entry λ")
@@ -76,7 +118,11 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 		return Response{StatusCode: 500}, fmt.Errorf("failed to put item, %v", err)
 	}
 
-	return createJournalEntry(ctx, entry)
+	if entry.ID == "-1" {
+		return createJournalEntry(ctx, entry)
+	}
+
+	return updateJournalEntry(ctx, entry)
 
 }
 

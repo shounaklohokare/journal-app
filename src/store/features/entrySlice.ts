@@ -19,11 +19,11 @@ const initialState: EntryState = {
     entries: [],
 }
 
-export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
+const headers = {
+    'x-api-key': API_KEY
+}
 
-    const headers = {
-        'x-api-key': API_KEY
-    }
+export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
 
     // To add call to the Lambda function to get journal entries from DynamoDB
     const res = await axios.get(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-journal-entries`, { headers: headers })
@@ -31,6 +31,17 @@ export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
     return res.data
 
 })
+
+export const putEntry = createAsyncThunk(
+    'users/putEntry',
+    async (entry: Entry, thunkAPI) => {
+
+        const res = await axios.post(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-journal-entries`, entry, { headers: headers })
+
+        return res.data;
+    }
+);
+
 
 export const EntrySlice = createSlice({
     name: "entry",
