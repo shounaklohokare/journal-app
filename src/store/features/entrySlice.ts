@@ -52,8 +52,8 @@ export const EntrySlice = createSlice({
                 id: String(state.entries.length + 1),
                 title: action.payload.title,
                 content: action.payload.content,
-                created_at: action.payload.created_at,
-                updated_at: action.payload.updated_at,
+                created: action.payload.created_at,
+                updated: action.payload.updated_at,
             })
         }
     },

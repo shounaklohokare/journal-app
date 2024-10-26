@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Entry, putEntry } from "../store/features/entrySlice";
-import { AsyncThunkAction, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useAppDispatch } from "../store/store";
 
 
 const NewEntry: React.FC = () => {
@@ -8,19 +11,57 @@ const NewEntry: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+    const dispatch = useAppDispatch()
+
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const entry: Entry = {
             id: "-1",
             title: title,
             content: content,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
+            created: new Date().toISOString(),
+            updated: new Date().toISOString()
         };
 
-        const res = dispatch(putEntry(entry))
-
-        console.log(res)
+        dispatch(putEntry(entry)).then((result) => {
+            if (putEntry.fulfilled.match(result)) {
+                toast.success('Journal Entry Created Successfully!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            } else if (putEntry.rejected.match(result)) {
+                toast.error('An error occurred: Unable to create entry', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            }
+        }).catch((error) => {
+            toast.error('An error occurred: Unable to create entry', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        });
 
 
     };
@@ -62,13 +103,9 @@ const NewEntry: React.FC = () => {
                     Submit
                 </button>
             </form>
-
+            <ToastContainer />
         </div>
     );
 };
 
 export default NewEntry;
-function dispatch(arg0: AsyncThunkAction<number, Entry, { state?: unknown; dispatch?: ThunkDispatch<unknown, unknown, UnknownAction> | undefined; extra?: unknown; rejectValue?: unknown; serializedErrorType?: unknown; pendingMeta?: unknown; fulfilledMeta?: unknown; rejectedMeta?: unknown; }>) {
-    throw new Error("Function not implemented.");
-}
-
