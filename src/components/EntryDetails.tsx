@@ -22,7 +22,7 @@ const EntryDetails: FC = () => {
     return <div className="flex flex-col mt-36 mx-36 flex-grow">
         <div className="flex justify-between">
             <div className="text-3xl font-semibold mb-8">{entry.title}</div>
-            <div className="text-[1.25rem] font-semibold mb-8 mr-[4.35rem]">{formatDate(entry.created_at)}</div>
+            <div className="text-[1.25rem] font-semibold mb-8 mr-[4.35rem]">{formatDate(entry.created)}</div>
         </div>
         <div className="text-xl">{entry?.content}</div>
     </div>

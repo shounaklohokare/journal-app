@@ -7,8 +7,8 @@ export interface Entry {
     id: string
     title: string
     content: string
-    created_at: string
-    updated_at: string
+    created: string
+    updated: string
 }
 
 interface EntryState {
@@ -26,7 +26,7 @@ const headers = {
 export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
 
     // To add call to the Lambda function to get journal entries from DynamoDB
-    const res = await axios.get(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-journal-entries`, { headers: headers })
+    const res = await axios.get(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-entries`, { headers: headers })
 
     return res.data
 
@@ -36,9 +36,9 @@ export const putEntry = createAsyncThunk(
     'users/putEntry',
     async (entry: Entry, thunkAPI) => {
 
-        const res = await axios.post(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-journal-entries`, entry, { headers: headers })
+        const res = await axios.post(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/create-update-entry`, entry, { headers: headers })
 
-        return res.data;
+        return res.status;
     }
 );
 

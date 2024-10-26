@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Entry, putEntry } from "../store/features/entrySlice";
+import { AsyncThunkAction, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 
 
 const NewEntry: React.FC = () => {
@@ -8,7 +10,19 @@ const NewEntry: React.FC = () => {
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        console.log('Form submitted:', { title, content });
+        const entry: Entry = {
+            id: "-1",
+            title: title,
+            content: content,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+        };
+
+        const res = dispatch(putEntry(entry))
+
+        console.log(res)
+
+
     };
 
 
@@ -54,3 +68,7 @@ const NewEntry: React.FC = () => {
 };
 
 export default NewEntry;
+function dispatch(arg0: AsyncThunkAction<number, Entry, { state?: unknown; dispatch?: ThunkDispatch<unknown, unknown, UnknownAction> | undefined; extra?: unknown; rejectValue?: unknown; serializedErrorType?: unknown; pendingMeta?: unknown; fulfilledMeta?: unknown; rejectedMeta?: unknown; }>) {
+    throw new Error("Function not implemented.");
+}
+

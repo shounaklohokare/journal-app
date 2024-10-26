@@ -15,7 +15,7 @@
       "function": {
         "journalappab1cfc19": {
           "deploymentBucketName": "amplify-journalapp-dev-716cd-deployment",
-          "s3Key": "amplify-builds/journalappab1cfc19-424967444c733643474b-build.zip"
+          "s3Key": "amplify-builds/journalappab1cfc19-612f736937506c665939-build.zip"
         },
         "journalapp342c0d8a": {
           "deploymentBucketName": "amplify-journalapp-dev-716cd-deployment",
