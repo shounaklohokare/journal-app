@@ -20,7 +20,9 @@ export const getIstDate = () => {
     const date = new Date();
 
     const IST_offset = 330
-    return String(new Date(date.getTime() + (IST_offset * 60 * 1000)));
+    const istDate = new Date(date.getTime() + (IST_offset * 60 * 1000));
+
+    return istDate.toISOString();
 }
 
 export const displayToast = (message: string, isError = false) => {
