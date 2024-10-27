@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Entry, putEntry } from "../store/features/entrySlice";
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useAppDispatch } from "../store/store";
+import { displayToast, getIstDate } from "../utils/utils";
 
 
 const NewEntry: React.FC = () => {
@@ -19,48 +20,19 @@ const NewEntry: React.FC = () => {
             id: "-1",
             title: title,
             content: content,
-            created: new Date().toISOString(),
-            updated: new Date().toISOString()
+            created: getIstDate(),
+            updated: getIstDate()
         };
 
         dispatch(putEntry(entry)).then((result) => {
             if (putEntry.fulfilled.match(result)) {
-                toast.success('Journal Entry Created Successfully!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+                displayToast('Journal Entry Created Successfully!')
             } else if (putEntry.rejected.match(result)) {
-                toast.error('An error occurred: Unable to create entry', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
+                displayToast('An error occurred: Unable to create entry', true)
             }
         }).catch((error) => {
-            toast.error('An error occurred: Unable to create entry', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            });
+            console.log(error)
+            displayToast('An error occurred: Unable to create entry', true)
         });
 
 
