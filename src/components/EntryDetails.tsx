@@ -15,8 +15,37 @@ const EntryDetails: FC = () => {
 
     const dispatch = useAppDispatch()
 
+    const deleteEntry = () => {
+
+
+
+    }
+
 
     const entries = useAppSelector((state) => state.entry.entries)
+
+    const updateEntry = () => {
+
+        const updateEntry: Entry = {
+            id: entry.id,
+            title: title,
+            content: content,
+            created: getIstDate(),
+            updated: getIstDate()
+        };
+
+        dispatch(putEntry(updateEntry)).then((result) => {
+            if (putEntry.fulfilled.match(result)) {
+                displayToast('Journal Entry Created Successfully!')
+            } else if (putEntry.rejected.match(result)) {
+                displayToast('An error occurred: Unable to create entry', true)
+            }
+        }).catch((error) => {
+            console.log(error)
+            displayToast('An error occurred: Unable to create entry', true)
+        });
+
+    }
 
     useEffect(() => {
 
@@ -62,10 +91,14 @@ const EntryDetails: FC = () => {
 
 
 
-        <div className="flex mx-auto space-x-4 mt-72 cursor-pointer" onClick={handleEdit}>
+        {isEditing ? <div className="flex mx-auto space-x-4 mt-72 cursor-pointer" onClick={handleEdit}>
             <h2 className="font-bold text-2xl">Edit</h2>
             <FaEdit size={36} />
-        </div>
+        </div> : <div className="flex mx-auto space-x-4 mt-72 cursor-pointer">
+            <button onClick={updateEntry}>Update</button>
+            <button onClick={deleteEntry}>Delete</button>
+            <button>Cancel</button>
+        </div>}
     </div>
 
 }
