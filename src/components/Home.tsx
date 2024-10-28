@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react"
 import JournalDiv from "./JournalsDiv";
 
-import { fetchEntry } from "../store/features/entrySlice";
+import { Entry, fetchEntry } from "../store/features/entrySlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 
 const Home: FC = () => {
@@ -12,7 +12,7 @@ const Home: FC = () => {
     dispatch(fetchEntry());
   })
 
-  const entries = useAppSelector((state) => state.entry.entries)
+  const entries: Entry[] = useAppSelector((state) => state.entry.entries)
 
   return <div>
     <JournalDiv data={entries} />
