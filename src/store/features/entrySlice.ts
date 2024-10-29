@@ -11,6 +11,10 @@ export interface Entry {
     updated: string
 }
 
+export interface DeleteEntryInput {
+    id: string
+}
+
 interface EntryState {
     entries: Entry[]
 }
@@ -37,6 +41,16 @@ export const putEntry = createAsyncThunk(
     async (entry: Entry, thunkAPI) => {
 
         const res = await axios.post(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/create-update-entry`, entry, { headers: headers })
+
+        return res.status;
+    }
+);
+
+export const deleteEntry = createAsyncThunk(
+    'users/deleteEntry',
+    async (entry: DeleteEntryInput, thunkAPI) => {
+
+        const res = await axios.post(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/delete-entry`, entry, { headers: headers })
 
         return res.status;
     }

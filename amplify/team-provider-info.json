@@ -15,11 +15,15 @@
       "function": {
         "journalappab1cfc19": {
           "deploymentBucketName": "amplify-journalapp-dev-716cd-deployment",
-          "s3Key": "amplify-builds/journalappab1cfc19-612f736937506c665939-build.zip"
+          "s3Key": "amplify-builds/journalappab1cfc19-4a514a773464616e697a-build.zip"
         },
         "journalapp342c0d8a": {
           "deploymentBucketName": "amplify-journalapp-dev-716cd-deployment",
           "s3Key": "amplify-builds/journalapp342c0d8a-7042732b5a6e3130492b-build.zip"
+        },
+        "journalappdcab0eff": {
+          "deploymentBucketName": "amplify-journalapp-dev-716cd-deployment",
+          "s3Key": "amplify-builds/journalappdcab0eff-4e57312b4f79656a737a-build.zip"
         }
       },
       "api": {

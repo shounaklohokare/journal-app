@@ -17,6 +17,14 @@
           ],
           "category": "function",
           "resourceName": "journalapp342c0d8a"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "journalappdcab0eff"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -30,6 +38,11 @@
       "service": "Lambda"
     },
     "journalappab1cfc19": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "journalappdcab0eff": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -65,6 +78,22 @@
         {
           "category": "function",
           "resourceName": "journalappab1cfc19"
+        }
+      ]
+    },
+    "AMPLIFY_function_journalappdcab0eff_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "journalappdcab0eff"
+        }
+      ]
+    },
+    "AMPLIFY_function_journalappdcab0eff_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "journalappdcab0eff"
         }
       ]
     }

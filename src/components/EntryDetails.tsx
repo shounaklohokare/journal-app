@@ -1,21 +1,43 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom";
-import { Entry, putEntry } from "../store/features/entrySlice";
+import { FC, useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom";
+import { DeleteEntryInput, Entry, putEntry, deleteEntry } from "../store/features/entrySlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { displayToast, formatDate, getIstDate } from "../utils/utils";
 import { FaEdit } from "react-icons/fa";
+import { ToastContainer } from "react-toastify";
 
 const EntryDetails: FC = () => {
     const { id } = useParams();
 
     const [entry, setEntry] = useState<Entry>([])
     const [isEditing, setIsEditing] = useState<boolean>(false)
-    const [title, setTitle] = useState<string>("")
-    const [content, setContent] = useState<string>("")
+    const [title, setTitle] = useState<string>(entry.title)
+    const [content, setContent] = useState<string>(entry.content)
 
     const dispatch = useAppDispatch()
 
-    const deleteEntry = () => {
+    const navigate = useNavigate();
+
+    const deleteJournalEntry = () => {
+
+        const deleteEntryInput: DeleteEntryInput = {
+            id: entry.id
+        };
+
+        dispatch(deleteEntry(deleteEntryInput)).then((result) => {
+            if (deleteEntry.fulfilled.match(result)) {
+                displayToast('Journal Entry deleted successfully, Redirecting to home page!')
+                setTimeout(() => {
+                    navigate("/")
+                }, 3000);
+
+            } else if (deleteEntry.rejected.match(result)) {
+                displayToast('An error occurred: Unable to update entry', true)
+            }
+        }).catch((error) => {
+            console.log(error)
+            displayToast('An error occurred: Unable to update entry', true)
+        });
 
 
 
@@ -36,13 +58,13 @@ const EntryDetails: FC = () => {
 
         dispatch(putEntry(updateEntry)).then((result) => {
             if (putEntry.fulfilled.match(result)) {
-                displayToast('Journal Entry Created Successfully!')
+                displayToast('Journal Entry Updated Successfully!')
             } else if (putEntry.rejected.match(result)) {
-                displayToast('An error occurred: Unable to create entry', true)
+                displayToast('An error occurred: Unable to update entry', true)
             }
         }).catch((error) => {
             console.log(error)
-            displayToast('An error occurred: Unable to create entry', true)
+            displayToast('An error occurred: Unable to update entry', true)
         });
 
     }
@@ -55,7 +77,7 @@ const EntryDetails: FC = () => {
         setTitle(entry.title)
 
 
-    }, [entry, content, title])
+    }, [title, entry])
 
     const handleEdit = () => {
 
@@ -91,21 +113,17 @@ const EntryDetails: FC = () => {
 
 
 
-        {isEditing ? <div className="flex mx-auto space-x-4 mt-72 cursor-pointer" onClick={handleEdit}>
+        {isEditing ? <div className="flex mx-auto space-x-4 mt-72 cursor-pointer">
+            <button onClick={updateEntry} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Update</button>
+            <button onClick={deleteJournalEntry} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Delete</button>
+            <button onClick={handleEdit} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Cancel</button>
+        </div> : <div className="flex mx-auto space-x-4 mt-72 cursor-pointer" onClick={handleEdit}>
             <h2 className="font-bold text-2xl">Edit</h2>
             <FaEdit size={36} />
-        </div> : <div className="flex mx-auto space-x-4 mt-72 cursor-pointer">
-            <button onClick={updateEntry}>Update</button>
-            <button onClick={deleteEntry}>Delete</button>
-            <button>Cancel</button>
         </div>}
+        <ToastContainer />
     </div>
 
 }
-
-
-
-
-
 
 export default EntryDetails;

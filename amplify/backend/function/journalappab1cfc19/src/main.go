@@ -35,7 +35,7 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 
 	entry, err := generateEntryObject(request.Body)
 	if err != nil {
-		return Response{StatusCode: 500}, fmt.Errorf("failed to put item, %v", err)
+		return Response{StatusCode: 500}, fmt.Errorf("failed to parse request body into entry object, %v", err)
 	}
 
 	if entry.ID == "-1" {
@@ -52,7 +52,7 @@ func generateEntryObject(body string) (Entry, error) {
 
 	err := json.Unmarshal([]byte(body), &entry)
 	if err != nil {
-		return entry, fmt.Errorf("error Occured while parsing request body :- %s", err)
+		return entry, err
 	}
 
 	fmt.Printf("Entry Object :- %v\n", entry)
@@ -81,8 +81,6 @@ func createJournalEntry(ctx context.Context, entry Entry) (Response, error) {
 		TableName: aws.String("JournalEntry"),
 		Item:      av,
 	}
-
-	fmt.Printf("Input Object :- %v\n", input)
 
 	_, err = svc.PutItem(ctx, input)
 	if err != nil {
