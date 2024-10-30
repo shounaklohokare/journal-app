@@ -14,7 +14,7 @@ const Home: FC = () => {
 
   const entries: Entry[] = useAppSelector((state) => state.entry.entries)
 
-  return <div>
+  return <div className="flex-grow">
     <JournalDiv data={entries} />
   </div>
 

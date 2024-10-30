@@ -9,7 +9,7 @@ interface JournalsDivProps {
 const JournalDiv: FC<JournalsDivProps> = ({ data }) => {
 
 
-    return <div className="flex flex-col mt-36 flex-grow">
+    return <div className="flex flex-col mt-36">
         {data.map((dataItem) => (
 
             <JournalEntry id={dataItem.id} key={dataItem.id} created={dataItem.created} updated={dataItem.updated} title={dataItem.title} content={dataItem.content} />
