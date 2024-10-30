@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+    .page-btn {
+        @apply md:px-2 px-2 md:py-1 py-1 md:font-bold font-semibold border border-black rounded-md bg-white/[0.2] text-sm transition duration-300;
+    }
+}
