@@ -8,8 +8,8 @@
         "setting": "open"
       }
     },
-    "/get-entries": {
-      "name": "/get-entries",
+    "/get-entries/{user-id}": {
+      "name": "/get-entries/{user-id}",
       "lambdaFunction": "journalapp342c0d8a",
       "permissions": {
         "setting": "open"

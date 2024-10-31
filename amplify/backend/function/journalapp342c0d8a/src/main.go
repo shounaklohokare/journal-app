@@ -10,7 +10,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
+
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
 
 type Entry struct {
@@ -23,7 +25,7 @@ type Entry struct {
 
 type Response events.APIGatewayProxyResponse
 
-func getAllRows(ctx context.Context, tableName string) ([]Entry, error) {
+func getAllRows(ctx context.Context, userId string) ([]Entry, error) {
 
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
@@ -32,30 +34,45 @@ func getAllRows(ctx context.Context, tableName string) ([]Entry, error) {
 
 	svc := dynamodb.NewFromConfig(cfg)
 
-	input := &dynamodb.ScanInput{
-		TableName: aws.String(tableName),
-	}
-
-	result, err := svc.Scan(ctx, input)
-	if err != nil {
-		return nil, fmt.Errorf("failed to scan items: %v", err)
-	}
+	partitionKeyName := "user_id"
+	queryPaginator := dynamodb.NewQueryPaginator(svc, &dynamodb.QueryInput{
+		TableName:              aws.String("JournalEntries"),
+		KeyConditionExpression: aws.String(fmt.Sprintf("%s = :v", partitionKeyName)),
+		ExpressionAttributeValues: map[string]types.AttributeValue{
+			":v": &types.AttributeValueMemberS{Value: userId},
+		},
+	})
 
 	var entries []Entry
-	err = attributevalue.UnmarshalListOfMaps(result.Items, &entries)
-	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal Entries: %v", err)
+	var response *dynamodb.QueryOutput
+	for queryPaginator.HasMorePages() {
+
+		response, err = queryPaginator.NextPage(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("couldn't build expression for query. Here's why: %v", err)
+		}
+
+		var entriesPage []Entry
+		err = attributevalue.UnmarshalListOfMaps(response.Items, &entries)
+		if err != nil {
+			return nil, fmt.Errorf("couldn't get journal entries for query. Here's why: %v", err)
+		}
+
+		entries = append(entries, entriesPage...)
+
 	}
 
 	return entries, nil
 
 }
 
-func HandleRequest(ctx context.Context) (Response, error) {
+func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (Response, error) {
 
 	fmt.Println("In /get-entries λ")
 
-	entries, err := getAllRows(ctx, "JournalEntry")
+	userId := request.PathParameters["user-id"]
+
+	entries, err := getAllRows(ctx, userId)
 	if err != nil {
 		return Response{StatusCode: 500}, err
 	}
