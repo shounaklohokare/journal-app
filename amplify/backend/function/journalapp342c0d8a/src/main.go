@@ -16,11 +16,12 @@ import (
 )
 
 type Entry struct {
-	ID      string `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	EntryID string `dynamodbav:"entry_id" json:"entry_id"`
+	UserID  string `dynamodbav:"user_id" json:"user_id"`
+	Title   string `dynamodbav:"title" json:"title"`
+	Content string `dynamodbav:"content" json:"content"`
+	Created string `dynamodbav:"created" json:"created"`
+	Updated string `dynamodbav:"updated" json:"updated"`
 }
 
 type Response events.APIGatewayProxyResponse
@@ -49,13 +50,13 @@ func getAllRows(ctx context.Context, userId string) ([]Entry, error) {
 
 		response, err = queryPaginator.NextPage(ctx)
 		if err != nil {
-			return nil, fmt.Errorf("couldn't build expression for query. Here's why: %v", err)
+			return nil, fmt.Errorf("couldn't fetch data for the query. Here's why: %v", err)
 		}
 
 		var entriesPage []Entry
 		err = attributevalue.UnmarshalListOfMaps(response.Items, &entries)
 		if err != nil {
-			return nil, fmt.Errorf("couldn't get journal entries for query. Here's why: %v", err)
+			return nil, fmt.Errorf("error occured while parsing response body. Here's why: %v", err)
 		}
 
 		entries = append(entries, entriesPage...)

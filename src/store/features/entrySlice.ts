@@ -32,9 +32,6 @@ export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
     // To add call to the Lambda function to get journal entries from DynamoDB
     const res = await axios.get(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-entries/432748`, { headers: headers })
 
-    console.log("res data")
-    console.log(res.data)
-
     return res.data
 
 })
