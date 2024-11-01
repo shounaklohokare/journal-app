@@ -21,7 +21,7 @@ const EntryDetails: FC = () => {
     const deleteJournalEntry = () => {
 
         const deleteEntryInput: DeleteEntryInput = {
-            id: entry.id
+            id: entry.entry_id
         };
 
         dispatch(deleteEntry(deleteEntryInput)).then((result) => {
@@ -49,7 +49,7 @@ const EntryDetails: FC = () => {
     const updateEntry = () => {
 
         const updateEntry: Entry = {
-            id: entry.id,
+            entry_id: entry.entry_id,
             title: title,
             content: content,
             created: getIstDate(),
@@ -71,7 +71,15 @@ const EntryDetails: FC = () => {
 
     useEffect(() => {
 
-        const pageEntry = entries.find((entry: Entry) => entry.id == id)
+        console.log("entries")
+        console.log(entries)
+
+        const pageEntry = entries.find((entry: Entry) => entry.entry_id == id)
+
+        console.log("pageEntry")
+        console.log(pageEntry)
+       
+
         setEntry(pageEntry)
         setContent(entry.content)
         setTitle(entry.title)

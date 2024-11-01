@@ -1,4 +1,5 @@
 import './index.css'
+
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Footer from './components/Footer.tsx'
 import Navbar from './components/Navbar.tsx'
@@ -10,6 +11,10 @@ import Home from './components/Home.tsx'
 import { Provider } from 'react-redux'
 import { store } from './store/store.ts'
 import NewEntry from './components/NewEntry.tsx'
+import SignUp from './components/SignUp.tsx'
+import Login from './components/Login.tsx'
+
+
 
 const App = () => {
 
@@ -36,6 +41,14 @@ const router = createBrowserRouter([{
     {
       path: "new_entry",
       element: <NewEntry />
+    },
+    {
+      path: "signup",
+      element: <SignUp />
+    },
+    {
+      path: "login",
+      element: <Login />
     }
   ],
   errorElement: <Error />

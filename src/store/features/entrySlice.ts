@@ -4,7 +4,7 @@ import { API_ID, API_KEY } from "../../utils/api_details";
 
 // Journal Entry
 export interface Entry {
-    id: string
+    entry_id: string
     title: string
     content: string
     created: string
@@ -30,7 +30,10 @@ const headers = {
 export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
 
     // To add call to the Lambda function to get journal entries from DynamoDB
-    const res = await axios.get(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-entries`, { headers: headers })
+    const res = await axios.get(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-entries/432748`, { headers: headers })
+
+    console.log("res data")
+    console.log(res.data)
 
     return res.data
 
@@ -63,7 +66,7 @@ export const EntrySlice = createSlice({
     reducers: {
         addEntry: (state, action: PayloadAction<{ title: string, content: string, created_at: string, updated_at: string }>) => {
             state.entries.push({
-                id: String(state.entries.length + 1),
+                entry_id: String(state.entries.length + 1),
                 title: action.payload.title,
                 content: action.payload.content,
                 created: action.payload.created_at,
