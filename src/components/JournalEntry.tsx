@@ -8,12 +8,12 @@ const JournalEntry: FC<Entry> = ({ entry_id, created, title, content, updated })
 
     const navigate = useNavigate();
 
-    return <div className="mx-auto my-5 cursor-pointer" onClick={() => { navigate(`entry/${entry_id}`) }}>
-        <div className="flex justify-between">
+    return <div className="mx-auto my-5 space-y-1 cursor-pointer" onClick={() => { navigate(`entry/${entry_id}`) }}>
+        <div className="flex space-x-80">
             <div className="font-semibold">{title}</div>
             <div className="font-semibold">{formatDate(created)}</div>
         </div>
-        <div>{content}</div>
+        <div className="w-full">{content}</div>
     </div>
 
 }
