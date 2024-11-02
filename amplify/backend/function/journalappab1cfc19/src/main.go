@@ -15,11 +15,12 @@ import (
 )
 
 type Entry struct {
-	ID      string `dynamodbav:"id"`
-	Title   string `dynamodbav:"title"`
-	Content string `dynamodbav:"content"`
-	Created string `dynamodbav:"created"`
-	Updated string `dynamodbav:"updated"`
+	EntryID string `dynamodbav:"entry_id" json:"entry_id"`
+	UserID  string `dynamodbav:"user_id" json:"user_id"`
+	Title   string `dynamodbav:"title" json:"title"`
+	Content string `dynamodbav:"content" json:"content"`
+	Created string `dynamodbav:"created" json:"created"`
+	Updated string `dynamodbav:"updated" json:"updated"`
 }
 
 type Response events.APIGatewayProxyResponse
@@ -38,7 +39,7 @@ func HandleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 		return Response{StatusCode: 500}, fmt.Errorf("failed to parse request body into entry object, %v", err)
 	}
 
-	if entry.ID == "-1" {
+	if entry.EntryID == "-1" {
 		return createJournalEntry(ctx, entry)
 	}
 
@@ -70,7 +71,7 @@ func createJournalEntry(ctx context.Context, entry Entry) (Response, error) {
 
 	svc := dynamodb.NewFromConfig(cfg)
 
-	entry.ID = getUuid()
+	entry.EntryID = getUuid()
 
 	av, err := attributevalue.MarshalMap(entry)
 	if err != nil {
@@ -119,7 +120,7 @@ func updateJournalEntry(ctx context.Context, entry Entry) (Response, error) {
 	svc := dynamodb.NewFromConfig(cfg)
 
 	key, err := attributevalue.MarshalMap(map[string]string{
-		"id": entry.ID,
+		"id": entry.EntryID,
 	})
 	if err != nil {
 		return Response{StatusCode: 500}, fmt.Errorf("failed to marshal key: %v", err)
@@ -143,7 +144,7 @@ func updateJournalEntry(ctx context.Context, entry Entry) (Response, error) {
 	}
 
 	input := &dynamodb.UpdateItemInput{
-		TableName:                 aws.String("JournalEntry"),
+		TableName:                 aws.String("JournalEntries"),
 		Key:                       key,
 		UpdateExpression:          aws.String(updateExpression),
 		ExpressionAttributeNames:  expressionAttributeNames,
