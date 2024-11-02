@@ -79,7 +79,7 @@ func createJournalEntry(ctx context.Context, entry Entry) (Response, error) {
 	}
 
 	input := &dynamodb.PutItemInput{
-		TableName: aws.String("JournalEntry"),
+		TableName: aws.String("JournalEntries"),
 		Item:      av,
 	}
 
