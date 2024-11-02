@@ -5,6 +5,7 @@ import { API_ID, API_KEY } from "../../utils/api_details";
 // Journal Entry
 export interface Entry {
     entry_id: string
+    user_id: string
     title: string
     content: string
     created: string
@@ -12,7 +13,8 @@ export interface Entry {
 }
 
 export interface DeleteEntryInput {
-    id: string
+    entry_id: string
+    user_id: string
 }
 
 interface EntryState {
@@ -64,6 +66,7 @@ export const EntrySlice = createSlice({
         addEntry: (state, action: PayloadAction<{ title: string, content: string, created_at: string, updated_at: string }>) => {
             state.entries.push({
                 entry_id: String(state.entries.length + 1),
+                user_id:"432748",
                 title: action.payload.title,
                 content: action.payload.content,
                 created: action.payload.created_at,

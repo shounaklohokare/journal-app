@@ -17,7 +17,8 @@ const NewEntry: React.FC = () => {
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const entry: Entry = {
-            id: "-1",
+            entry_id: "-1",
+            user_id:"432748",
             title: title,
             content: content,
             created: getIstDate(),

@@ -120,7 +120,8 @@ func updateJournalEntry(ctx context.Context, entry Entry) (Response, error) {
 	svc := dynamodb.NewFromConfig(cfg)
 
 	key, err := attributevalue.MarshalMap(map[string]string{
-		"id": entry.EntryID,
+		"entry_id": entry.EntryID,
+		"user_id":  entry.UserID,
 	})
 	if err != nil {
 		return Response{StatusCode: 500}, fmt.Errorf("failed to marshal key: %v", err)

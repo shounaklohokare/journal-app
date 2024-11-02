@@ -15,7 +15,8 @@ import (
 )
 
 type Entry struct {
-	ID string `dynamodbav:"id"`
+	EntryID string `dynamodbav:"entry_id" json:"entry_id"`
+	UserID  string `dynamodbav:"user_id" json:"user_id"`
 }
 
 type Response events.APIGatewayProxyResponse
@@ -27,10 +28,10 @@ func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 
 	entry, err := generateEntryObject(request.Body)
 	if err != nil {
-		return Response{StatusCode: 500}, fmt.Errorf("failed to put item, %v", err)
+		return Response{StatusCode: 500}, fmt.Errorf("error occured while parsing response body. Here's why: %v", err)
 	}
 
-	return deleteRow(ctx, "JournalEntry", entry)
+	return deleteRow(ctx, "JournalEntries", entry)
 
 }
 
@@ -87,12 +88,15 @@ func generateEntryObject(body string) (Entry, error) {
 }
 
 func (entry Entry) GetKey() (map[string]types.AttributeValue, error) {
-	id, err := attributevalue.Marshal(entry.ID)
-	if err != nil {
-		return nil, err
-	}
 
-	return map[string]types.AttributeValue{"id": id}, nil
+	key, err := attributevalue.MarshalMap(map[string]string{
+		"entry_id": entry.EntryID,
+		"user_id":  entry.UserID,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal key: %v", err)
+	}
+	return key, nil
 }
 
 func main() {

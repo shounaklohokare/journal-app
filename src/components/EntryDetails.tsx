@@ -21,7 +21,8 @@ const EntryDetails: FC = () => {
     const deleteJournalEntry = () => {
 
         const deleteEntryInput: DeleteEntryInput = {
-            id: entry.entry_id
+            entry_id: entry.entry_id,
+            user_id : "432748"
         };
 
         dispatch(deleteEntry(deleteEntryInput)).then((result) => {
@@ -32,11 +33,11 @@ const EntryDetails: FC = () => {
                 }, 3000);
 
             } else if (deleteEntry.rejected.match(result)) {
-                displayToast('An error occurred: Unable to update entry', true)
+                displayToast('An error occurred: Unable to delete entry', true)
             }
         }).catch((error) => {
             console.log(error)
-            displayToast('An error occurred: Unable to update entry', true)
+            displayToast('An error occurred: Unable to delete entry', true)
         });
 
 
@@ -50,6 +51,7 @@ const EntryDetails: FC = () => {
 
         const updateEntry: Entry = {
             entry_id: entry.entry_id,
+            user_id: entry.user_id,
             title: title,
             content: content,
             created: getIstDate(),
@@ -58,6 +60,7 @@ const EntryDetails: FC = () => {
 
         dispatch(putEntry(updateEntry)).then((result) => {
             if (putEntry.fulfilled.match(result)) {
+                setIsEditing(false)
                 displayToast('Journal Entry Updated Successfully!')
             } else if (putEntry.rejected.match(result)) {
                 displayToast('An error occurred: Unable to update entry', true)
@@ -71,27 +74,24 @@ const EntryDetails: FC = () => {
 
     useEffect(() => {
 
-        console.log("entries")
-        console.log(entries)
-
         const pageEntry = entries.find((entry: Entry) => entry.entry_id == id)
-
-        console.log("pageEntry")
-        console.log(pageEntry)
-       
 
         setEntry(pageEntry)
         setContent(entry.content)
         setTitle(entry.title)
 
 
-    }, [title, entry])
+    }, [entry])
 
     const handleEdit = () => {
 
         setIsEditing(!isEditing)
+    }
 
-
+    const handleCancel = () => {
+        handleEdit()
+        setContent(entry.content)
+        setTitle(entry.title)
     }
 
     return <div className="flex flex-col mt-36 mx-36 flex-grow">
@@ -102,7 +102,7 @@ const EntryDetails: FC = () => {
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="focus:outline-none p-0 m-0 border border-gray-800 rounded-md"
+                        className="focus:outline-none border border-gray-800 rounded-md"
                     /> : <div>{title}</div>
             }
 
@@ -124,7 +124,7 @@ const EntryDetails: FC = () => {
         {isEditing ? <div className="flex mx-auto space-x-4 mt-72 cursor-pointer">
             <button onClick={updateEntry} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Update</button>
             <button onClick={deleteJournalEntry} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Delete</button>
-            <button onClick={handleEdit} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Cancel</button>
+            <button onClick={handleCancel} className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Cancel</button>
         </div> : <div className="flex mx-auto space-x-4 mt-72 cursor-pointer" onClick={handleEdit}>
             <h2 className="font-bold text-2xl">Edit</h2>
             <FaEdit size={36} />
