@@ -15,6 +15,9 @@ dist-ssr
 # API details
 src/utils/api_details.ts
 
+# AWS Cognito user pool details
+src/utils/cognito-amplify-config.ts
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
