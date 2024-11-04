@@ -6,7 +6,7 @@ import Password from "./Password";
 import { Link } from "react-router-dom";
 import { emailRegex } from "../utils/constants";
 import { displayToast } from "../utils/utils";
-
+import { authenticateUser } from "../utils/auth";
 
 
 const Login:FC = () => {
@@ -14,18 +14,29 @@ const Login:FC = () => {
     const [loginText, setLoginText] = useState(""); 
     const [password, setPassword] = useState("");    
 
-    const handleOnClick = () => {
+    const handleOnClick = async() => {
 
         if(!emailRegex.test(loginText)){
             displayToast('Invalid Email Id, Please try again!', true)
             return
         }
 
-
         if(password=== ""){
+            displayToast('Password cannot be empty!', true)
             return
         }
 
+        const res = await authenticateUser(loginText, password)
+
+        if(res === 401){
+            displayToast('Incorrect username or password!', true)
+            return
+        }
+
+        if(res === 500){
+            displayToast('Unexpected error occured!', true)
+            return
+        }
 
 
     }
