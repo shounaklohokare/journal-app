@@ -18,16 +18,21 @@ export interface DeleteEntryInput {
 }
 
 interface EntryState {
+    isAuthenticated : boolean
+    userid: string
     entries: Entry[]
 }
 
 const initialState: EntryState = {
+    isAuthenticated : false,
+    userid : "",
     entries: [],
 }
 
 const headers = {
     'x-api-key': API_KEY
 }
+
 
 export const fetchEntry = createAsyncThunk("entry/fetch", async (thunkAPI) => {
 
@@ -63,16 +68,22 @@ export const EntrySlice = createSlice({
     name: "entry",
     initialState,
     reducers: {
-        addEntry: (state, action: PayloadAction<{ title: string, content: string, created_at: string, updated_at: string }>) => {
+        addEntry: (state, action: PayloadAction<{ title: string, content: string, created_at: string, updated_at: string, user_id : string }>) => {
             state.entries.push({
                 entry_id: String(state.entries.length + 1),
-                user_id:"432748",
+                user_id:action.payload.user_id,
                 title: action.payload.title,
                 content: action.payload.content,
                 created: action.payload.created_at,
                 updated: action.payload.updated_at,
             })
-        }
+        },
+        setAuthenticated: (state, action: PayloadAction<boolean>) => {
+            state.isAuthenticated = action.payload;
+        },
+        setUsername: (state, action: PayloadAction<string>) => {
+            state.userid = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchEntry.fulfilled, (state, action) => {
@@ -82,4 +93,4 @@ export const EntrySlice = createSlice({
 })
 
 export default EntrySlice.reducer;
-export const { addEntry } = EntrySlice.actions;
+export const { addEntry,  setAuthenticated, setUsername} = EntrySlice.actions;

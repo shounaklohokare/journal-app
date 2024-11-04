@@ -13,6 +13,7 @@ const EntryDetails: FC = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(entry.title)
     const [content, setContent] = useState<string>(entry.content)
+    const isAuthenticated: boolean[] = useAppSelector((state) => state.entry.isAuthenticated)
 
     const dispatch = useAppDispatch()
 
@@ -74,6 +75,10 @@ const EntryDetails: FC = () => {
 
     useEffect(() => {
 
+        if(!isAuthenticated){
+            navigate("/")
+          }
+
         const pageEntry = entries.find((entry: Entry) => entry.entry_id == id)
 
         setEntry(pageEntry)
@@ -93,6 +98,8 @@ const EntryDetails: FC = () => {
         setContent(entry.content)
         setTitle(entry.title)
     }
+
+
 
     return <div className="flex flex-col mt-36 mx-36 flex-grow">
         <div className="flex justify-between">

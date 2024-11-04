@@ -5,7 +5,6 @@ import Footer from './components/Footer.tsx'
 import Navbar from './components/Navbar.tsx'
 import Error from './components/Error.tsx'
 import EntryDetails from './components/EntryDetails.tsx'
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Home from './components/Home.tsx'
 import { Provider } from 'react-redux'
@@ -13,7 +12,7 @@ import { store } from './store/store.ts'
 import NewEntry from './components/NewEntry.tsx'
 import SignUp from './components/SignUp.tsx'
 import Login from './components/Login.tsx'
-
+import ProtectedRoute from './components/ProtectedRoute.tsx'
 
 
 const App = () => {
@@ -32,23 +31,35 @@ const router = createBrowserRouter([{
   children: [
     {
       path: "",
-      element: <Home />
+      element: <Login />
     },
     {
       path: "entry/:id",
-      element: <EntryDetails />
+      element: (
+        <ProtectedRoute>
+          <EntryDetails />
+       </ProtectedRoute>
+      )
     },
     {
       path: "new_entry",
-      element: <NewEntry />
+      element: (
+        <ProtectedRoute>
+          <NewEntry />
+       </ProtectedRoute>
+      )
     },
     {
       path: "signup",
       element: <SignUp />
     },
     {
-      path: "login",
-      element: <Login />
+      path: "home",
+      element:(
+        <ProtectedRoute>
+          <Home />
+       </ProtectedRoute>
+      )
     }
   ],
   errorElement: <Error />

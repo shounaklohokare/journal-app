@@ -14,6 +14,8 @@ const NewEntry: React.FC = () => {
 
     const dispatch = useAppDispatch()
 
+
+
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const entry: Entry = {

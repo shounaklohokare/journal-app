@@ -65,7 +65,7 @@ const SignUp:FC = () => {
             </div>
      
 
-            <div className="text-gray-500 cursor-default text-center mt-4 md:text-left md:mt-12">Already have an account? <span className="text-cyan-700 cursor-pointer"><Link to="/login">Log in</Link></span></div>
+            <div className="text-gray-500 cursor-default text-center mt-4 md:text-left md:mt-12">Already have an account? <span className="text-cyan-700 cursor-pointer"><Link to="/">Log in</Link></span></div>
 
         </div>
         
