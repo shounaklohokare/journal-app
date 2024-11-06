@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useAppDispatch } from "../store/store";
 import { displayToast, getIstDate } from "../utils/utils";
+import { useSelector } from "react-redux";
 
 
 const NewEntry: React.FC = () => {
@@ -14,13 +15,13 @@ const NewEntry: React.FC = () => {
 
     const dispatch = useAppDispatch()
 
-
+    const userid = useSelector((state) => state.entry.user_id);
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const entry: Entry = {
             entry_id: "-1",
-            user_id:"432748",
+            user_id:userid,
             title: title,
             content: content,
             created: getIstDate(),

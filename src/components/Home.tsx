@@ -4,6 +4,7 @@ import { Entry, fetchEntry } from "../store/features/entrySlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { ENTRIES_PER_PAGE } from "../utils/constants";
 import Pagination from "./Pagination";
+import { useSelector } from "react-redux";
 
 const Home: FC = () => {
 
@@ -12,10 +13,24 @@ const Home: FC = () => {
 
   const dispatch = useAppDispatch()
 
+  const userid = useSelector((state) => state.entry.user_id);
+ 
 
   useEffect(() => {
 
-    dispatch(fetchEntry());
+ 
+    console.log(userid)
+        
+      dispatch(fetchEntry(userid)).then((result) => {
+        if (fetchEntry.fulfilled.match(result)) {
+            console.log("Fetched data")
+        } 
+    }).catch((error) => {
+        console.log(error)
+  
+    });
+
+      
   
   })
 
