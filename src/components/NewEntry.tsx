@@ -15,13 +15,13 @@ const NewEntry: React.FC = () => {
 
     const dispatch = useAppDispatch()
 
-    const userid = useSelector((state) => state.entry.user_id);
+    const user_id = useSelector((state) => state.entry.user_id);
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const entry: Entry = {
             entry_id: "-1",
-            user_id:userid,
+            user_id:user_id,
             title: title,
             content: content,
             created: getIstDate(),
@@ -30,6 +30,7 @@ const NewEntry: React.FC = () => {
 
         dispatch(putEntry(entry)).then((result) => {
             if (putEntry.fulfilled.match(result)) {
+                (document.activeElement as HTMLElement).blur();
                 displayToast('Journal Entry Created Successfully!')
             } else if (putEntry.rejected.match(result)) {
                 displayToast('An error occurred: Unable to create entry', true)

@@ -13,7 +13,6 @@ const EntryDetails: FC = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(entry.title)
     const [content, setContent] = useState<string>(entry.content)
-    const isAuthenticated: boolean[] = useAppSelector((state) => state.entry.isAuthenticated)
 
     const dispatch = useAppDispatch()
 
@@ -23,14 +22,14 @@ const EntryDetails: FC = () => {
 
         const deleteEntryInput: DeleteEntryInput = {
             entry_id: entry.entry_id,
-            user_id : "432748"
+            user_id : entry.user_id
         };
 
         dispatch(deleteEntry(deleteEntryInput)).then((result) => {
             if (deleteEntry.fulfilled.match(result)) {
                 displayToast('Journal Entry deleted successfully, Redirecting to home page!')
                 setTimeout(() => {
-                    navigate("/")
+                    navigate("/home")
                 }, 3000);
 
             } else if (deleteEntry.rejected.match(result)) {
@@ -75,9 +74,6 @@ const EntryDetails: FC = () => {
 
     useEffect(() => {
 
-        if(!isAuthenticated){
-            navigate("/")
-          }
 
         const pageEntry = entries.find((entry: Entry) => entry.entry_id == id)
 
