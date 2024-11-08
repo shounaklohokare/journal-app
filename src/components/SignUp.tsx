@@ -5,6 +5,7 @@ import Email from "./Email";
 import Password from "./Password";
 import { displayToast } from "../utils/utils";
 import { emailRegex, passwordRegex } from "../utils/constants";
+import { confirmSignUp, signUpUser } from "../utils/auth";
 
 
 const SignUp:FC = () => {
@@ -38,6 +39,14 @@ const SignUp:FC = () => {
             return
         }
 
+        signUpUser("test-username", password, loginText).then((response) => {
+            console.log("Sign-up initiated:", response);
+          })
+          .catch((error) => {
+            console.error("Error during sign-up:", error);
+          });
+
+      
     }
 
 
