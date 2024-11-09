@@ -54,7 +54,7 @@ export const signUpUser =  async (username: string, password: string, email: str
     Password: password,
     UserAttributes: [
       {
-        Name: "email", // You can add more attributes like phone_number, given_name, etc.
+        Name: "email", 
         Value: email,
       },
     ],
@@ -66,10 +66,10 @@ export const signUpUser =  async (username: string, password: string, email: str
     const response = await cognitoClient.send(command);
 
     console.log("User signed up successfully:", response);
-    return response;
+    return 200;
   } catch (error) {
     console.error("Error signing up user:", error);
-    throw error;
+    return 500;
   }
 }
 
@@ -89,10 +89,10 @@ export const  confirmSignUp = async (username: string, confirmationCode: string)
     const response = await cognitoClient.send(command);
 
     console.log("User confirmed successfully:", response);
-    return response;
+    return 200
   } catch (error) {
     console.error("Error confirming user:", error);
-    throw error;
+    return 500;
   }
 }
 

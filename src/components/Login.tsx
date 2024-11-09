@@ -1,7 +1,7 @@
 import { useState, FC } from "react"
 
 import { ToastContainer } from 'react-toastify';
-import Email from "./Email";
+import Input from "./Input";
 import Password from "./Password";
 import { Link, useNavigate } from "react-router-dom";
 import { emailRegex } from "../utils/constants";
@@ -9,8 +9,6 @@ import { displayToast } from "../utils/utils";
 import { authenticateUser } from "../utils/auth";
 import { setAuthenticated, setUsername } from "../store/features/entrySlice";
 import { useAppDispatch } from "../store/store";
-
-
 
 const Login:FC = () => {
 
@@ -24,7 +22,7 @@ const Login:FC = () => {
     const handleOnClick = async() => {
 
         if(!emailRegex.test(loginText)){
-            displayToast('Invalid Email Id, Please try again!', true)
+            displayToast('Invalid Input Id, Please try again!', true)
             return
         }
 
@@ -66,7 +64,7 @@ const Login:FC = () => {
                         <div className="text-center md:text-left font-mono mb-10 text-4xl font-bold">
                                 Log In
                         </div>  
-                        <Email loginText={loginText} setLoginText={setLoginText}/>
+                        <Input text={loginText} setText={setLoginText}/>
                        <Password password={password}  setPassword={setPassword} labelText={"Password"}/>
                         <div className="login-box">
                                 <div className="font-thin ml-[1px] text-cyan-700 cursor-pointer">Forgot Password</div>

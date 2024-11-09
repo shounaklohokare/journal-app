@@ -13,7 +13,6 @@ const Navbar:FC = () => {
     const dispatch = useAppDispatch()
 
     const handleLogOut = () => {
-        
         dispatch(setAuthenticated(false))
         dispatch(setUsername(""))
         navigate("/")
