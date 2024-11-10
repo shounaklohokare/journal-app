@@ -8,10 +8,18 @@ import { useAppDispatch } from "../store/store";
 const Navbar:FC = () => {
 
     const location = useLocation();
+
+    return (location.pathname === "/" || location.pathname === "/signup" ) ? <UnauthenticatedNavbar/> : <AuthenticatedNavbar/>
+
+}
+
+const AuthenticatedNavbar:FC = () => {
+
     const navigate = useNavigate();
 
     const dispatch = useAppDispatch()
 
+    
     const handleLogOut = () => {
         dispatch(setAuthenticated(false))
         dispatch(setUsername(""))
@@ -19,19 +27,25 @@ const Navbar:FC = () => {
     }
 
 
-    return (location.pathname === "/" ? <div className="flex justify-center flex-shrink-0 items-center absolute top-0 w-full h-24 font-mono bg-[#2a2a2a] text-[#f3c278]">
+    return <div className="flex justify-between flex-shrink-0 items-center absolute top-0 w-full h-24 font-mono bg-[#2a2a2a] text-[#f3c278]">
+                <h1 className="text-4xl mx-72  md:tracking-wider text-nowrap  cursor-pointer" onClick={() => { navigate("/home") }}>MindMemo</h1>
+                <div className="flex ml-96  space-x-2 cursor-pointer">
+                    <span className="pt-[0.08rem]"><IoCreateOutline size={30} /> </span>
+                    <span className="text-2xl" onClick={() => { navigate("/new_entry") }}>New Entry</span>
+                </div>
+                <div className="flex mt-[0.175rem] flex-col items-center pt-3 mx-12 space-y-1 cursor-pointer" onClick={handleLogOut}>
+                <CiLogout size={30}/>
+                <span className="text-sm">Logout</span>
+                </div>
+            </div>
+
+}
+
+const UnauthenticatedNavbar:FC = () => {
+
+    return <div className="flex justify-center flex-shrink-0 items-center absolute top-0 w-full h-24 font-mono bg-[#2a2a2a] text-[#f3c278]">
     <h1 className="text-[2.6rem] mx-72  md:tracking-wider text-nowrap  cursor-pointer">MindMemo</h1>
-</div> : (<div className="flex justify-between flex-shrink-0 items-center absolute top-0 w-full h-24 font-mono bg-[#2a2a2a] text-[#f3c278]">
-        <h1 className="text-4xl mx-72  md:tracking-wider text-nowrap  cursor-pointer" onClick={() => { navigate("/home") }}>MindMemo</h1>
-        <div className="flex ml-96  space-x-2 cursor-pointer">
-            <span className="pt-[0.08rem]"><IoCreateOutline size={30} /> </span>
-            <span className="text-2xl" onClick={() => { navigate("/new_entry") }}>New Entry</span>
-        </div>
-        <div className="flex flex-col items-center pt-3 mx-12 space-y-1 cursor-pointer" onClick={handleLogOut}>
-        <CiLogout size={30}/>
-        <span className="text-sm">Logout</span>
-        </div>
-    </div>))
+</div>
 
 }
 
