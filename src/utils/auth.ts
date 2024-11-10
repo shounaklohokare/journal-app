@@ -44,9 +44,8 @@ export const authenticateUser =  async (username: string, password: string)  => 
   }
 }
 
-export const signUpUser =  async (username: string, password: string, email: string) => {
+export const signUpUser =  async (username: string, password: string, email: string, secretHash : string) => {
 
-  const secretHash = await generateSecretHash(username);
 
   const params = {
     ClientId: CLIENT_ID,
@@ -72,30 +71,27 @@ export const signUpUser =  async (username: string, password: string, email: str
     return 500;
   }
 }
-
-export const  confirmSignUp = async (username: string, confirmationCode: string) => {
-
-  const secretHash = await generateSecretHash(username);
-
-  const params = {
-    ClientId: CLIENT_ID,
-    Username: username,
-    ConfirmationCode: confirmationCode,
-    SecretHash: secretHash
-  };
-
+export const confirmSignUp = async (username: string, confirmationCode: string, secretHash : string) => {
   try {
+   
+
+    const params = {
+      ClientId: CLIENT_ID,
+      Username: username,
+      ConfirmationCode: confirmationCode,
+      SecretHash: secretHash
+    };
+
     const command = new ConfirmSignUpCommand(params);
     const response = await cognitoClient.send(command);
 
     console.log("User confirmed successfully:", response);
-    return 200
+    return response;
   } catch (error) {
     console.error("Error confirming user:", error);
-    return 500;
+    throw error; 
   }
 }
-
 
 
 export const generateSecretHash = (username: string): string => {

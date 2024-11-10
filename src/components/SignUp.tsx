@@ -1,12 +1,15 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Password from "./Password";
 import { displayToast, generateUUID } from "../utils/utils";
 import { emailRegex, passwordRegex } from "../utils/constants";
-import { confirmSignUp, signUpUser } from "../utils/auth";
+import { confirmSignUp, generateSecretHash, signUpUser } from "../utils/auth";
 import Input from "./Input";
-import { setServers } from "dns";
+
+
+const uuid = generateUUID()
+
 
 
 const SignUp:FC = () => {
@@ -16,12 +19,13 @@ const SignUp:FC = () => {
     const [password2, setPassword2] = useState(""); 
     const [isSignedUp, setIsSignedUp] = useState(false);
     const [verificationCode, setVerificationCode] = useState("");
-    
-    const navigate = useNavigate();
 
-    const uuid = generateUUID()
+    const uuid = useRef(generateUUID())
+    const secretHash = useRef(generateSecretHash(uuid.current));
+
+    const navigate = useNavigate();
     
-    const handleOnSignUp = async () => {
+    const handleOnSignUp =  () => {
 
         if(loginText === '' || password === '' || password2 == ''){
             displayToast('All fields are required, Please try again!', true)
@@ -46,7 +50,7 @@ const SignUp:FC = () => {
             return
         }
 
-        signUpUser("312312", password, loginText).then(() => {
+        signUpUser(uuid.current, password, loginText,secretHash.current).then(() => {
             setIsSignedUp(true)
           })  .catch(() => {
             displayToast('Error occured during sign up!', true)
@@ -54,9 +58,12 @@ const SignUp:FC = () => {
        
     }
 
-    const handleOnVerify = async() => {
+    const handleOnVerify = () => {
 
-        confirmSignUp("321312", verificationCode).then((res) => {
+        console.log("verificationCode is", verificationCode)
+
+        confirmSignUp(uuid.current, verificationCode,secretHash.current).then((res) => {
+
             displayToast('User created successfully, redirecting to log in!')
             setTimeout(() => {
                 navigate("/")
