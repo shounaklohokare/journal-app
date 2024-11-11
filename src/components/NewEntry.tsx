@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch } from "../store/store";
 import { displayToast, getIstDate } from "../utils/utils";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 const NewEntry: React.FC = () => {
@@ -13,7 +14,9 @@ const NewEntry: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+
+    const navigate = useNavigate()
 
     const user_id = useSelector((state) => state.entry.user_id);
 
@@ -31,7 +34,8 @@ const NewEntry: React.FC = () => {
         dispatch(putEntry(entry)).then((result) => {
             if (putEntry.fulfilled.match(result)) {
                 (document.activeElement as HTMLElement).blur();
-                displayToast('Journal Entry Created Successfully!')
+                displayToast('Journal Entry Created Successfully, redirecting to home page!')
+                navigate("/home")
             } else if (putEntry.rejected.match(result)) {
                 displayToast('An error occurred: Unable to create entry', true)
             }

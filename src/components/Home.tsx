@@ -4,6 +4,7 @@ import { Entry, fetchEntry } from "../store/features/entrySlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { ENTRIES_PER_PAGE } from "../utils/constants";
 import Pagination from "./Pagination";
+import { sortEntriesByLastUpdate} from "../utils/utils";
 
 const Home: FC = () => {
 
@@ -19,7 +20,8 @@ const Home: FC = () => {
 
   }, [])
 
-  const entries: Entry[] = useAppSelector((state) => state.entry.entries)
+  const entries: Entry[] = sortEntriesByLastUpdate(useAppSelector((state) => state.entry.entries))
+
 
   console.log("entries in home page")
   console.log(entries)
@@ -40,7 +42,7 @@ const Home: FC = () => {
 
 const EmptyJournalMessage = () => {
 
-  return <div className="flex-grow"><h1 className="text-[1.4rem] text-center mt-36 font-mono">There are no journal entries. Click on the 'New Entry' option to add entries here.</h1></div> 
+  return <div className="flex-grow"><h1 className="text-[1.4rem] text-center mt-28 font-mono">There are no journal entries. Click on the 'New Entry' option to add entries here.</h1></div> 
 
 }
 

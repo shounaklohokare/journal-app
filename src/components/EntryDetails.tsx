@@ -97,7 +97,7 @@ const EntryDetails: FC = () => {
 
 
 
-    return <div className="flex flex-col mt-36 mx-36 flex-grow">
+    return <div className="flex flex-col mt-36 mx-36 flex-grow ">
         <div className="flex justify-between">
             {
                 isEditing ?
@@ -106,10 +106,10 @@ const EntryDetails: FC = () => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         className="focus:outline-none border border-gray-800 rounded-md"
-                    /> : <div>{title}</div>
+                    /> : <div className="w-[80%] text-[1.2rem] font-semibold text-wrap">{title}</div>
             }
 
-            <div className="text-[1.25rem] font-semibold mb-8 mr-[4.35rem]">{formatDate(entry.created)}</div>
+            <div className="text-[1.2rem] font-semibold mb-8 mr-[4.35rem]">{formatDate(entry.created)}</div>
         </div>
 
         {
@@ -119,7 +119,7 @@ const EntryDetails: FC = () => {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     className="focus:outline-none border border-gray-800 rounded-md"
-                /> : <div>{content}</div>
+                /> : <div className="mt-10 text-[1.1rem]">{content}</div>
         }
 
 
@@ -136,5 +136,7 @@ const EntryDetails: FC = () => {
     </div>
 
 }
+
+
 
 export default EntryDetails;

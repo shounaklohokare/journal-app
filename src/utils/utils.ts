@@ -1,4 +1,5 @@
 import { toast, Bounce } from "react-toastify";
+import { Entry } from "../store/features/entrySlice";
 
 export const formatDate = (timestamp: string) => {
 
@@ -57,3 +58,26 @@ export const generateUUID = (): string => {
       return value.toString(16);
     });
   }
+
+
+export const sortEntriesByLastUpdate = (entries: Entry[]): Entry[] => {
+
+    if(entries.length === 0){
+        return []
+    }
+
+    return [...entries].sort((a, b) => {
+        // Compare updated timestamps first
+        const aUpdated = new Date(a.updated).getTime();
+        const bUpdated = new Date(b.updated).getTime();
+        
+        if (aUpdated !== bUpdated) {
+            return bUpdated - aUpdated; // Descending order
+        }
+        
+        // If updated timestamps are equal, fallback to created timestamps
+        const aCreated = new Date(a.created).getTime();
+        const bCreated = new Date(b.created).getTime();
+        return bCreated - aCreated;
+    });
+}
