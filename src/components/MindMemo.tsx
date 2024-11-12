@@ -10,6 +10,17 @@ import { authenticateUser } from "../utils/auth";
 import { setAuthenticated, setUsername } from "../store/features/entrySlice";
 import { useAppDispatch } from "../store/store";
 
+
+const MindMemo:FC = () => {
+
+    const [isLandingPage, setIsLandingPage] = useState(true);
+
+    return isLandingPage ? <LandingPage setIsLandingPage={setIsLandingPage} /> : <Login/>
+
+
+}
+
+
 const Login:FC = () => {
 
     const navigate = useNavigate()
@@ -80,4 +91,50 @@ const Login:FC = () => {
 
 }
 
-export default Login;
+
+interface LandingPageProps {
+    setIsLandingPage : (arg0: boolean) => void
+}
+
+
+const LandingPage:FC<LandingPageProps> = ({setIsLandingPage}) => {
+
+    const navigate = useNavigate()
+
+    return (
+      <div className="flex flex-col flex-grow items-center justify-center bg-gradient-to-br from-[#F0E3D0] to-[#F3C278]">
+        <div className="max-w-md w-full ">
+          <div>
+            <h2 className="text-center text-3xl font-extrabold text-gray-900">
+              Welcome to MindMemo
+            </h2>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              Your personal journal for mindful reflection.
+            </p>
+          </div>
+          <div className="mt-8 space-y-6">
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#729B79]"
+                onClick={() => navigate("/signup")}
+              >
+                Sign Up
+              </button>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#729B79]"
+                onClick={() => setIsLandingPage(false)}
+              >
+                Sign In
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+export default MindMemo;
