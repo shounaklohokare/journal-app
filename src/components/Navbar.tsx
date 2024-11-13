@@ -9,7 +9,11 @@ const Navbar:FC = () => {
 
     const location = useLocation();
 
-    return (location.pathname === "/" || location.pathname === "/signup" ) ? <UnauthenticatedNavbar/> : <AuthenticatedNavbar/>
+    if(location.pathname === "/"){
+        return <></>
+    }
+
+    return (location.pathname === "/login"  || location.pathname === "/signup" ) ? <UnauthenticatedNavbar/> : <AuthenticatedNavbar/>
 
 }
 
@@ -43,7 +47,9 @@ const AuthenticatedNavbar:FC = () => {
 
 const UnauthenticatedNavbar:FC = () => {
 
-    return <div className="flex justify-center flex-shrink-0 items-center absolute top-0 w-full h-24 font-mono bg-[#2a2a2a] text-[#f3c278]">
+    const navigate = useNavigate();
+
+    return <div className="flex justify-center flex-shrink-0 items-center absolute top-0 w-full h-24 font-mono bg-[#2a2a2a] text-[#f3c278]" onClick={() => navigate("/")}>
     <h1 className="text-[2.6rem] mx-72  md:tracking-wider text-nowrap  cursor-pointer">MindMemo</h1>
 </div>
 

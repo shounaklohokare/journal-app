@@ -11,9 +11,9 @@ import { Provider } from 'react-redux'
 import { store } from './store/store.ts'
 import NewEntry from './components/NewEntry.tsx'
 import SignUp from './components/SignUp.tsx'
-import Login from './components/MindMemo.tsx'
+import Login from './components/Login.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
-import MindMemo from './components/MindMemo.tsx'
+import LandingPage from './components/LandingPage.tsx'
 
 
 const App = () => {
@@ -32,7 +32,7 @@ const router = createBrowserRouter([{
   children: [
     {
       path: "",
-      element: <MindMemo />
+      element: <LandingPage />
     },
     {
       path: "entry/:id",
@@ -53,6 +53,10 @@ const router = createBrowserRouter([{
     {
       path: "signup",
       element: <SignUp />
+    },
+    {
+      path: "login",
+      element: <Login />
     },
     {
       path: "home",
