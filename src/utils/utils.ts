@@ -1,5 +1,7 @@
 import { toast, Bounce } from "react-toastify";
 import { Entry } from "../store/features/entrySlice";
+import crypto from 'crypto';
+import { ENCRYPTION_KEY, ENCRYPTION_IV } from "./encryption_keys";
 
 export const formatDate = (timestamp: string) => {
 
@@ -67,17 +69,29 @@ export const sortEntriesByLastUpdate = (entries: Entry[]): Entry[] => {
     }
 
     return [...entries].sort((a, b) => {
-        // Compare updated timestamps first
         const aUpdated = new Date(a.updated).getTime();
         const bUpdated = new Date(b.updated).getTime();
         
         if (aUpdated !== bUpdated) {
-            return bUpdated - aUpdated; // Descending order
+            return bUpdated - aUpdated; 
         }
         
-        // If updated timestamps are equal, fallback to created timestamps
         const aCreated = new Date(a.created).getTime();
         const bCreated = new Date(b.created).getTime();
         return bCreated - aCreated;
     });
 }
+
+export function encrypt(text: string): string {
+    const cipher = crypto.createCipheriv('aes-256-cbc', ENCRYPTION_KEY, ENCRYPTION_IV);
+    let encrypted = cipher.update(text, 'utf8', 'base64');
+    encrypted += cipher.final('base64');
+    return encrypted;
+  }
+  
+  export function decrypt(encrypted: string): string {
+    const decipher = crypto.createDecipheriv('aes-256-cbc', ENCRYPTION_KEY, ENCRYPTION_IV);
+    let decrypted = decipher.update(encrypted, 'base64', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
+  }

@@ -18,6 +18,9 @@ src/utils/api_details.ts
 # AWS Cognito user pool details
 src/utils/cognito-amplify-config.ts
 
+# encryption key
+src/utils/encryption_keys.ts 
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
