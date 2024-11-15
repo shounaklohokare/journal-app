@@ -56,16 +56,16 @@ const Login:FC = () => {
 
                 <div className="relative flex flex-col m-6 space-y-10 md:flex-row md:space-y-0 md:m-0">
                     
-                    <div className="px-8 py-4 md:p-16">
+                    <div className="px-8 py-4 md:p-16 rounded-[2.15rem] bg-white/30">
                         
-                        <div className="text-center md:text-left font-mono mb-10 text-4xl font-bold">
+                        <div className="text-center text-amber-900 md:text-left font-mono mb-10 text-4xl font-bold">
                                 Log In
                         </div>  
                         <Input text={loginText} setText={setLoginText}/>
                        <Password password={password}  setPassword={setPassword} labelText={"Password"}/>
                         <div className="login-box">
                                 <div className="font-thin ml-[1px] text-cyan-700 cursor-pointer">Forgot Password</div>
-                                <button className="login-button" onClick={handleOnClick}>
+                                <button className="login-button  bg-amber-600" onClick={handleOnClick}>
                                     <span>Log In</span>          
                                 </button>
                         </div>
