@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Entry, putEntry } from "../store/features/entrySlice";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import RichTextEditor from './RichTextEditor';
 
 import { useAppDispatch } from "../store/store";
 import { displayToast, getIstDate } from "../utils/utils";
@@ -68,14 +69,7 @@ const NewEntry: React.FC = () => {
                     <label htmlFor="content" className="block text-sm font-medium text-gray-700">
                         Content
                     </label>
-                    <textarea
-                        id="content"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        className="mt-1 block w-full rounded-md border border-slate-600 focus:border-black"
-                        rows='4'
-                        required
-                    ></textarea>
+                    <RichTextEditor value={content} onChange={setContent}/>
                 </div>
                 <button
                     type="submit"
