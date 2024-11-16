@@ -64,12 +64,10 @@ const Login:FC = () => {
                         <Input text={loginText} setText={setLoginText}/>
                        <Password password={password}  setPassword={setPassword} labelText={"Password"}/>
                         <div className="login-box">
-                                <div className="font-thin ml-[1px] text-cyan-700 cursor-pointer">Forgot Password</div>
-                                <button className="login-button  bg-amber-600" onClick={handleOnClick}>
-                                    <span>Log In</span>          
-                                </button>
+                                <div className="font-thin ml-[1px] text-amber-800 cursor-pointer">Forgot Password</div>
+                                <button className="login-button  bg-amber-600" onClick={handleOnClick}>Log In</button>
                         </div>
-                        <div className="text-gray-500 cursor-default text-center mt-6 md:text-left md:mt-12">Don't have an account? <span className="text-cyan-700 cursor-pointer"><Link to="/signup">Sign up</Link></span></div>
+                        <div className="text-amber-800 cursor-default text-center mt-6 md:text-left md:mt-12">Don't have an account? <span className="text-amber-900 hover:text-amber-600 cursor-pointer"><Link to="/signup">Sign up</Link></span></div>
                     </div>
                 </div>
                 <ToastContainer/>
