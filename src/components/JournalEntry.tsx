@@ -4,7 +4,7 @@ import { formatDate } from "../utils/utils";
 import { Entry } from "../store/features/entrySlice";
 import { useNavigate } from "react-router-dom";
 
-const JournalEntry: FC<Entry> = ({ entry_id, created, title, content, updated }) => {
+const JournalEntry: FC<Entry> = ({ entry_id, created, title, content }) => {
 
     const navigate = useNavigate();
 

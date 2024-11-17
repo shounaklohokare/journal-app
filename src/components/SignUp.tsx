@@ -106,7 +106,7 @@ const VerifyEmail:FC<VerifyEmailProps> = ({uuid, secretHash}) => {
 
         console.log("verificationCode is", verificationCode)
 
-        confirmSignUp(uuid, verificationCode,secretHash).then((res) => {
+        confirmSignUp(uuid, verificationCode,secretHash).then(() => {
 
             displayToast('User created successfully, redirecting to log in!')
             setTimeout(() => {

@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react"
 import JournalDiv from "./JournalsDiv";
-import { Entry, fetchEntry } from "../store/features/entrySlice";
+import { Entry, EntryState, fetchEntry } from "../store/features/entrySlice";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { ENTRIES_PER_PAGE } from "../utils/constants";
 import Pagination from "./Pagination";
@@ -20,7 +20,7 @@ const Home: FC = () => {
 
   }, [])
 
-  const entries: Entry[] = sortEntriesByLastUpdate(useAppSelector((state) => state.entry.entries))
+  const entries: Entry[] = sortEntriesByLastUpdate(useAppSelector((state) => (state as unknown as { entry: EntryState }).entry.entries))
 
 
   console.log("entries in home page")

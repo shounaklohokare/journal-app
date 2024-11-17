@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from "react";
-import { Entry, putEntry } from "../store/features/entrySlice";
+import { Entry, EntryState, putEntry } from "../store/features/entrySlice";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch } from "../store/store";
@@ -22,7 +22,7 @@ const NewEntry: React.FC = () => {
 
     const navigate = useNavigate()
 
-    const user_id = useSelector((state) => state.entry.user_id);
+    const user_id = useSelector((state) => (state as unknown as { entry: EntryState }).entry.user_id);
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();

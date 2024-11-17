@@ -13,7 +13,7 @@ const EntryDetails: FC = () => {
 
     const entries = useAppSelector((state  ) => (state as unknown as { entry: EntryState }).entry.entries)
 
-    const [entry, setEntry] = useState<Entry>( () => {
+    const [entry] = useState<Entry>( () => {
         const pageEntry  = entries.find((entry: Entry) => entry.entry_id === id)
 
         if (!pageEntry) {
