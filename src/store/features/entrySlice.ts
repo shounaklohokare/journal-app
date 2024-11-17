@@ -36,6 +36,8 @@ const headers = {
 
 export const fetchEntry = createAsyncThunk("entry/fetch", async (_, thunkAPI) => {
 
+    console.log(thunkAPI.getState())
+
     const { entry: { user_id } } = thunkAPI.getState();
 
 
@@ -48,7 +50,7 @@ export const fetchEntry = createAsyncThunk("entry/fetch", async (_, thunkAPI) =>
 
 export const putEntry = createAsyncThunk(
     'users/putEntry',
-    async (entry: Entry, thunkAPI) => {
+    async (entry: Entry) => {
 
         const res = await axios.post(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/create-update-entry`, entry, { headers: headers })
 
@@ -58,7 +60,7 @@ export const putEntry = createAsyncThunk(
 
 export const deleteEntry = createAsyncThunk(
     'users/deleteEntry',
-    async (entry: DeleteEntryInput, thunkAPI) => {
+    async (entry: DeleteEntryInput) => {
 
         const res = await axios.post(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/delete-entry`, entry, { headers: headers })
 

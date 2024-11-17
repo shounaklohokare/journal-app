@@ -9,10 +9,10 @@ import { ToastContainer } from "react-toastify";
 const EntryDetails: FC = () => {
     const { id } = useParams();
 
-    const [entry, setEntry] = useState<Entry>([])
+    const [entry, setEntry] = useState<Entry | []>([])
     const [isEditing, setIsEditing] = useState<boolean>(false)
-    const [title, setTitle] = useState<string>(entry.title)
-    const [content, setContent] = useState<string>(entry.content)
+    const [title, setTitle] = useState<string>('')
+    const [content, setContent] = useState<string>('')
 
     const dispatch = useAppDispatch()
 
@@ -50,8 +50,8 @@ const EntryDetails: FC = () => {
     const updateEntry = () => {
 
         const updateEntry: Entry = {
-            entry_id: entry.entry_id,
-            user_id: entry.user_id,
+            entry_id: entry?.entry_id,
+            user_id: entry?.user_id,
             title: title,
             content: content,
             created: getIstDate(),
@@ -78,8 +78,8 @@ const EntryDetails: FC = () => {
         const pageEntry = entries.find((entry: Entry) => entry.entry_id == id)
 
         setEntry(pageEntry)
-        setContent(entry.content)
-        setTitle(entry.title)
+        setContent(pageEntry?.content)
+        setTitle(pageEntry?.title)
 
 
     }, [entry])

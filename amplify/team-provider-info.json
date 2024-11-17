@@ -28,6 +28,12 @@
       },
       "api": {
         "apidfcac5b1": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dvibb4qwn0lk1",
+          "type": "manual"
+        }
       }
     }
   }

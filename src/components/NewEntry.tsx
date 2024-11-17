@@ -1,9 +1,7 @@
-import { useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import { Entry, putEntry } from "../store/features/entrySlice";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import RichTextEditor from './RichTextEditor';
-
 import { useAppDispatch } from "../store/store";
 import { displayToast, getIstDate } from "../utils/utils";
 import { useSelector } from "react-redux";
@@ -14,6 +12,11 @@ const NewEntry: React.FC = () => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+
+    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setContent(e.target.value);
+      };
+    
 
     const dispatch = useAppDispatch();
 
@@ -61,7 +64,9 @@ const NewEntry: React.FC = () => {
                         id="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="mt-1 block w-full rounded-md border border-slate-600 focus:border-black"
+                        className="mt-1 px-3 py-1 block w-full text-gray-700 bg-white border border-gray-300 
+                        rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                        hover:border-gray-400 resize-none shadow-sm"
                         required
                     />
                 </div>
@@ -69,7 +74,7 @@ const NewEntry: React.FC = () => {
                     <label htmlFor="content" className="block text-sm font-medium text-gray-700">
                         Content
                     </label>
-                    <RichTextEditor value={content} onChange={setContent}/>
+                    <EntryContent text={content} setText={handleChange}/>
                 </div>
                 <button
                     type="submit"
@@ -82,5 +87,45 @@ const NewEntry: React.FC = () => {
         </div>
     );
 };
+
+
+interface EntryContentProps {
+    text : string 
+    setText : (e: ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+const EntryContent:FC<EntryContentProps> = ({text, setText}) => {
+
+    const charCount = text.length;
+
+    return <div className="w-full mt-1">
+       
+            
+            <div className="relative">
+            <textarea
+                value={text}
+                onChange={setText}
+                rows={6}
+                maxLength={5000}
+                className="w-full px-4 py-3 text-gray-700 bg-white border border-gray-300 
+                        rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                        hover:border-gray-400 transition-colors duration-200
+                      resize-none shadow-sm"
+            />
+            
+            <div className="absolute bottom-3 right-3 text-xs text-gray-400">
+                {charCount}/{5000}
+            </div>
+            </div>
+            
+            <div className="h-1 w-full bg-gray-200 rounded-full mt-2">
+            <div 
+                className="h-1 bg-blue-500 rounded-full transition-all duration-200"
+                style={{ width: `${(charCount / 5000) * 100}%` }}
+            />
+            </div>
+        </div>
+
+}
 
 export default NewEntry;
