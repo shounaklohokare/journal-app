@@ -17,11 +17,16 @@ export interface DeleteEntryInput {
     user_id: string
 }
 
-interface EntryState {
+export interface EntryState {
     isAuthenticated : boolean
     user_id: string
     entries: Entry[]
 }
+
+interface RootState {
+    entry : EntryState
+}
+
 
 const initialState: EntryState = {
     isAuthenticated : false,
@@ -38,8 +43,8 @@ export const fetchEntry = createAsyncThunk("entry/fetch", async (_, thunkAPI) =>
 
     console.log(thunkAPI.getState())
 
-    const { entry: { user_id } } = thunkAPI.getState();
-
+    const { entry: { user_id } } = thunkAPI.getState() as RootState;
+ 
 
     // To add call to the Lambda function to get journal entries from DynamoDB
     const res = await axios.get(`https://${API_ID}.execute-api.ap-south-1.amazonaws.com/dev/get-entries/${user_id}`, { headers: headers })

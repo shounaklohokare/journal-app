@@ -1,15 +1,27 @@
 import { FC, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-import { DeleteEntryInput, Entry, putEntry, deleteEntry } from "../store/features/entrySlice";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { DeleteEntryInput, Entry, putEntry, deleteEntry, EntryState } from "../store/features/entrySlice";
+import {  useAppDispatch, useAppSelector } from "../store/store";
 import { displayToast, formatDate, getIstDate } from "../utils/utils";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
 
+
+
 const EntryDetails: FC = () => {
     const { id } = useParams();
 
-    const [entry, setEntry] = useState<Entry | []>([])
+    const entries = useAppSelector((state  ) => (state as unknown as { entry: EntryState }).entry.entries)
+
+    const [entry, setEntry] = useState<Entry>( () => {
+        const pageEntry  = entries.find((entry: Entry) => entry.entry_id === id)
+
+        if (!pageEntry) {
+            throw new Error(`No entry found with id ${id}`);
+        }
+        return pageEntry
+    })
+
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
     const [content, setContent] = useState<string>('')
@@ -44,8 +56,7 @@ const EntryDetails: FC = () => {
 
     }
 
-
-    const entries = useAppSelector((state) => state.entry.entries)
+  
 
     const updateEntry = () => {
 
@@ -74,13 +85,8 @@ const EntryDetails: FC = () => {
 
     useEffect(() => {
 
-
-        const pageEntry = entries.find((entry: Entry) => entry.entry_id == id)
-
-        setEntry(pageEntry)
-        setContent(pageEntry?.content)
-        setTitle(pageEntry?.title)
-
+        setContent(entry.content)
+        setTitle(entry.title)
 
     }, [entry])
 
