@@ -3,7 +3,7 @@ import { Entry, EntryState, putEntry } from "../store/features/entrySlice";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch } from "../store/store";
-import { displayToast, getIstDate } from "../utils/utils";
+import { displayToast, encrypt, getIstDate } from "../utils/utils";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -26,11 +26,14 @@ const NewEntry: React.FC = () => {
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+
+
+
         const entry: Entry = {
             entry_id: "-1",
             user_id:user_id,
-            title: title,
-            content: content,
+            title: encrypt(title),
+            content: encrypt(content),
             created: getIstDate(),
             updated: getIstDate()
         };

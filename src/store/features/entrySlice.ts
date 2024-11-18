@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import axios from 'axios';
 import { API_ID, API_KEY } from "../../utils/api_details";
+import { decrypt } from "../../utils/utils";
 
 // Journal Entry
 export interface Entry {
@@ -97,7 +98,14 @@ export const EntrySlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchEntry.fulfilled, (state, action) => {
-            state.entries = action.payload;
+
+            const res: Entry[] = (action.payload as Entry[]).map((e) => ({
+                ...e,
+                title: decrypt(e.title),
+                content: decrypt(e.content),
+            }));
+
+            state.entries = res;
         })
     }
 })
