@@ -1,7 +1,7 @@
 import { toast, Bounce } from "react-toastify";
 import { Entry } from "../store/features/entrySlice";
-import crypto from 'crypto';
-import { ENCRYPTION_KEY, ENCRYPTION_IV } from "./encryption_keys";
+import { ENCRYPTION_KEY } from "./encryption_keys";
+import CryptoJS from 'crypto-js';
 
 export const formatDate = (timestamp: string) => {
 
@@ -82,16 +82,11 @@ export const sortEntriesByLastUpdate = (entries: Entry[]): Entry[] => {
     });
 }
 
-export function encrypt(text: string): string {
-    const cipher = crypto.createCipheriv('aes-256-cbc', ENCRYPTION_KEY, ENCRYPTION_IV);
-    let encrypted = cipher.update(text, 'utf8', 'base64');
-    encrypted += cipher.final('base64');
-    return encrypted;
-  }
-  
-  export function decrypt(encrypted: string): string {
-    const decipher = crypto.createDecipheriv('aes-256-cbc', ENCRYPTION_KEY, ENCRYPTION_IV);
-    let decrypted = decipher.update(encrypted, 'base64', 'utf8');
-    decrypted += decipher.final('utf8');
-    return decrypted;
-  }
+export const encrypt = (plainText: string): string => {
+    return CryptoJS.AES.encrypt(plainText, ENCRYPTION_KEY).toString();
+  };
+
+export const decrypt = (cipherText: string): string => {
+    const bytes = CryptoJS.AES.decrypt(cipherText, ENCRYPTION_KEY);
+    return bytes.toString(CryptoJS.enc.Utf8);
+  };
