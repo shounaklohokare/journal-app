@@ -42,7 +42,7 @@ const Home: FC = () => {
 
 const EmptyJournalMessage = () => {
 
-  return <div className="flex-grow"><h1 className="text-[1.4rem] text-center mt-28 font-mono">There are no journal entries. Click on the 'New Entry' option to add entries here.</h1></div> 
+  return <div className="flex-grow"><h1 className="md:text-[1.3rem] text-md text-center mt-28 font-mono">There are no journal entries. Click on the 'New Entry' option to add entries here.</h1></div> 
 
 }
 
