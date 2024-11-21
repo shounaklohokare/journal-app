@@ -52,7 +52,7 @@ const UnauthenticatedNavbar:FC = () => {
     const navigate = useNavigate();
 
     return <div className="flex justify-center flex-shrink-0 items-center absolute top-0 w-full h-24 font-mono bg-[#2a2a2a] text-[#f3c278]" onClick={() => navigate("/")}>
-    <h1 className="text-[2.6rem] mx-72  md:tracking-wider text-nowrap  cursor-pointer">MindMemo</h1>
+    <h1 className="md:text-[2.5rem] text-[2.06rem] mx-72  md:tracking-wider text-nowrap  cursor-pointer">MindMemo</h1>
 </div>
 
 }
