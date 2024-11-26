@@ -124,7 +124,7 @@ const VerifyEmail:FC<VerifyEmailProps> = ({uuid, secretHash}) => {
                     <div className="text-center mt-1 md:text-left font-mono mb-10 text-sm text-wrap w-96">Please enter the verification code sent to your email by no-reply@verificationemail.com</div>
 
                     <Input text={verificationCode} setText={setVerificationCode} labelText="Verification Code" />
-                    <button className="w-full  flex justify-center items-center p-4 md:p-5 mt-6 space-x-6 font-sans font-bold text-white rounded-md px-8 bg-cyan-700 shadow-cyan-100 hover:bg-opacity-90 shadow-sm hover:shadow-lg hover:-translate-y-0.5 duration-150" onClick={handleOnVerify}>
+                    <button className="w-full  flex justify-center items-center p-4 md:p-5 mt-6 space-x-6 font-sans font-bold text-white rounded-md px-8 bg-amber-600 shadow-cyan-100 hover:bg-opacity-90 shadow-sm hover:shadow-lg hover:-translate-y-0.5 duration-150" onClick={handleOnVerify}>
                     Submit
                     </button>
                     
