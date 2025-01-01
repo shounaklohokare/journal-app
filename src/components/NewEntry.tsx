@@ -56,7 +56,7 @@ const NewEntry: React.FC = () => {
 
 
     return (
-        <div className='flex-grow mx-36 space-y-4 mt-32'>
+        <div className='flex-grow md:mx-36 mx-12 space-y-4 mt-32'>
             <form onSubmit={handleSubmit} className="space-y-4 flex flex-col">
                 <div>
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700">
